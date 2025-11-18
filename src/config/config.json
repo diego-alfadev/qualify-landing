@@ -1,0 +1,40 @@
+{
+  "site": {
+    "title": "Qualify Inmo",
+    "base_url": "https://qualifyinmo.com",
+    "base_path": "/",
+    "trailing_slash": false,
+    "favicon": "/images/favicon.ico",
+    "logo": "/images/brand/logo-sq.webp",
+    "logo_width": "47",
+    "logo_height": "47",
+    "logo_text": "ualify <span class=\"text-secondary\">Inmo</span>"
+  },
+
+  "params": {
+    "footer_description": "Qualify Inmo es la forma más rápida y precisa de filtrar clientes potenciales en el sector inmobiliario. Ahorra tiempo, automatiza la preselección y quédate solo con los leads que de verdad encajan.",
+    "email": "contact@qualifyinmo.com",
+    "location": "Operamos 100% online, conectando agencias con la tecnología que simplifica su día a día.",
+    "phone": "+34 600 123 456",
+    "contact_form_action": "#",
+    "copyright": "© 2025 Qualify Inmo — desarrollado por [AlfaDev](https://github.com/diego-alfadev)"
+  },
+
+  "metadata": {
+    "meta_author": "Qualify Inmo",
+    "meta_image": "/images/brand/meta-cover.png",
+    "meta_description": "Qualify Inmo es un SaaS para inmobiliarias que automatiza la cualificación de leads. Ahorra tiempo a tus agentes filtrando clientes según criterios reales y obtén solo las oportunidades que de verdad importan.",
+    "meta_keywords": [
+      "Qualify Inmo",
+      "SaaS inmobiliario",
+      "cualificación de leads",
+      "automatización de leads",
+      "tecnología inmobiliaria",
+      "software para agencias inmobiliarias",
+      "lead scoring",
+      "real estate tech",
+      "automatización comercial"
+    ],
+    "meta_application_name": "Qualify Inmo — Automatiza la cualificación de tus leads"
+  }
+}
