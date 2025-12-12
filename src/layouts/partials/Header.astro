@@ -1,6 +1,5 @@
 ---
 import Logo from "@/components/core/Logo.astro";
-import ThemeToggle from "@/components/core/ThemeToggle.astro";
 import menu from "@/config/menu.json";
 
 export interface ChildNavigationLink {
@@ -53,7 +52,7 @@ const { pathname } = Astro.url;
 
     <ul
       id="nav-menu"
-      class="navbar-nav order-3 hidden w-full lg:order-1 lg:flex lg:w-auto lg:space-x-2 "
+      class="navbar-nav order-3 hidden w-full lg:order-1 lg:flex lg:w-auto lg:space-x-2"
     >
       {
         main.map((menu) => (
@@ -75,10 +74,7 @@ const { pathname } = Astro.url;
                     <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                   </svg>
                 </span>
-                <ul
-                  id="dropdown"
-                  class="nav-dropdown-list"
-                >
+                <ul id="dropdown" class="nav-dropdown-list">
                   {menu.children?.map((child) => (
                     <li class="nav-dropdown-item">
                       <a
@@ -111,34 +107,41 @@ const { pathname } = Astro.url;
           </>
         ))
       }
-    <!-- </ul>
-    <div class="order-1 ml-auto absolute right-3 top-3 items-center md:order-2 md:ml-0 lg:relative lg:right-0 lg:flex lg:top-0">
-      <ThemeToggle />
-    </div> -->
-  </header>
-</nav>
+      <li class="nav-item mt-4 lg:mt-0 lg:ml-4">
+        <a
+          href="/signup"
+          class="btn btn-sm btn-primary shadow-glow-primary hover:shadow-glow-primary/80 transition-all"
+        >
+          Empieza Ahora
+        </a>
+      </li>
+    </ul>
+  </nav>
 
-<script is:inline>
-  function initDropdownListeners() {
-    document.querySelectorAll(".dropdown-button").forEach((button) => {
-      const dropdown = button.closest(".nav-dropdown");
-      function toggleDropdown(e) {
-        e.stopPropagation(); // Evitar eventos innecesarios
-        dropdown.classList.toggle("open");
+  <script is:inline>
+    function initDropdownListeners() {
+      document.querySelectorAll(".dropdown-button").forEach((button) => {
+        const dropdown = button.closest(".nav-dropdown");
+        function toggleDropdown(e) {
+          e.stopPropagation(); // Evitar eventos innecesarios
+          dropdown.classList.toggle("open");
 
-        // Cierra otros dropdowns abiertos
-        document.querySelectorAll(".nav-dropdown").forEach((otherDropdown) => {
-          if (otherDropdown !== dropdown) {
-            otherDropdown.classList.remove("open");
-          }
-        });
-      }
-      button.removeEventListener("click", toggleDropdown);
-      button.addEventListener("click", toggleDropdown);
+          // Cierra otros dropdowns abiertos
+          document
+            .querySelectorAll(".nav-dropdown")
+            .forEach((otherDropdown) => {
+              if (otherDropdown !== dropdown) {
+                otherDropdown.classList.remove("open");
+              }
+            });
+        }
+        button.removeEventListener("click", toggleDropdown);
+        button.addEventListener("click", toggleDropdown);
+      });
+    }
+    // Asegura que los eventos se reasignen después de cada navegación
+    document.addEventListener("astro:page-load", () => {
+      initDropdownListeners();
     });
-  }
-  // Asegura que los eventos se reasignen después de cada navegación
-  document.addEventListener("astro:page-load", () => {
-    initDropdownListeners();
-  });
-</script>
+  </script>
+</header>

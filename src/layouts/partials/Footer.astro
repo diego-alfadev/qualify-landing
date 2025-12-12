@@ -9,7 +9,7 @@ const { footer } = menu;
 const { copyright, location, email, phone, footer_description } = config.params;
 
 const has_social = Object.entries(social).some(
-  ([key, value]) => key != "title" && value
+  ([key, value]) => key != "title" && value,
 );
 ---
 
@@ -33,7 +33,7 @@ const has_social = Object.entries(social).some(
             <div class="col-12 mt-12 md:col-6 lg:col-3">
               <h6>Quick Links</h6>
               <ul>
-                {footer.map((item, i) => (
+                {(footer as any[]).map((item, i) => (
                   <li class={footer.length - 1 === i ? "mb-0" : "mb-4"}>
                     <a
                       class="hover:text-primary hover:underline "

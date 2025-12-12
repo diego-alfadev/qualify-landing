@@ -9,11 +9,9 @@ import "@/styles/main.scss";
 
 import { AstroFont } from "astro-font";
 import { ViewTransitions } from "astro:transitions";
-import { getEntry } from "astro:content";
-import type { PageType } from "@/content/page.types";
-import type { ContentEntryMap } from "astro:content";
+import AmbientLights from "@/components/astro/AmbientLights.astro";
 
-const GTAG = import.meta.env.GTAG_ID
+const GTAG = import.meta.env.GTAG_ID;
 
 // font families
 const pf = theme.fonts.font_family.primary;
@@ -33,15 +31,6 @@ if (theme.fonts.font_family.secondary) {
 
 // types for frontmatters
 export interface Props {
-  /**
-   * Entry keys to fetch data from content. The entry is expected to be a `PageType`
-   * If an entry is not found, it will log a warning in the console.
-   *
-   * When found, the page data will be used to build the metadata for the page (SEO)
-   *
-   * @see PageType
-   */
-  entry_keys?: [keyof ContentEntryMap, string];
   /**
    * Override <title> og:title and twitter:title
    * @default config.site.title
@@ -72,61 +61,24 @@ export interface Props {
 }
 
 // distructure frontmatters
-const {
-  entry_keys,
-  title,
-  description,
-  author,
-  keywords,
-  image,
-  noindex,
-  canonical_url,
-} = Astro.props;
+const { title, description, author, keywords, image, noindex, canonical_url } =
+  Astro.props;
 
-let page: PageType | undefined = undefined;
+// page variable removed
 
-if (entry_keys) {
-  const page_entry = await getEntry(...entry_keys);
-  if (page_entry) {
-    page = page_entry.data as PageType;
-  }
-}
-const _title = title
-  ? title
-  : page?.document_title
-    ? page.document_title
-    : config.site.title;
+const _title = title ? title : config.site.title;
 const _description = description
   ? description
-  : page?.meta_description
-    ? page.meta_description
-    : config.metadata.meta_description;
-const _image = image
-  ? image
-  : page?.meta_image
-    ? page.meta_image
-    : config.metadata.meta_image;
-const _author = author
-  ? author
-  : page?.meta_author
-    ? page.meta_author
-    : config.metadata.meta_author;
-const _keywords = keywords
-  ? keywords
-  : page?.meta_keywords
-    ? page.meta_keywords
-    : config.metadata.meta_keywords;
-const _canonical_url = canonical_url
-  ? canonical_url
-  : page?.canonical_url
-    ? page.canonical_url
-    : undefined;
-const _noindex =
-  noindex === true ? true : page?.noindex === true ? true : false;
+  : config.metadata.meta_description;
+const _image = image ? image : config.metadata.meta_image;
+const _author = author ? author : config.metadata.meta_author;
+
+const _canonical_url = canonical_url ? canonical_url : undefined;
+const _noindex = noindex === true ? true : false;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <!-- favicon -->
     <link rel="shortcut icon" href={config.site.favicon} />
@@ -175,14 +127,17 @@ const _noindex =
     />
 
     <!-- Google tag (gtag.js) -->
-    <script async src={"https://www.googletagmanager.com/gtag/js?id="+GTAG}></script>
-    <script type="text/javascript" define:vars={{GTAG}}>
+    <script async src={"https://www.googletagmanager.com/gtag/js?id=" + GTAG}
+    ></script>
+    <script type="text/javascript" define:vars={{ GTAG }}>
       // Pasamos la variable GTAG_ID al navegador como una variable global
       window.GTAG_ID = GTAG;
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', window.GTAG_ID);
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", window.GTAG_ID);
     </script>
 
     <!-- title -->
@@ -226,28 +181,16 @@ const _noindex =
     />
 
     <!-- twitter-title -->
-    <meta
-      name="twitter:title"
-      content={plainify(_title)}
-    />
+    <meta name="twitter:title" content={plainify(_title)} />
 
     <!-- twitter-description -->
-    <meta
-      name="twitter:description"
-      content={plainify(_description)}
-    />
+    <meta name="twitter:description" content={plainify(_description)} />
 
     <!-- og-image -->
-    <meta
-      property="og:image"
-      content={`${config.site.base_url}${_image}`}
-    />
+    <meta property="og:image" content={`${config.site.base_url}${_image}`} />
 
     <!-- twitter-image -->
-    <meta
-      name="twitter:image"
-      content={`${config.site.base_url}${_image}`}
-    />
+    <meta name="twitter:image" content={`${config.site.base_url}${_image}`} />
     <meta name="twitter:card" content="summary_large_image" />
     <script is:inline>
       const setTheme = () => {
@@ -277,8 +220,40 @@ const _noindex =
 
       document.addEventListener("astro:after-swap", setTheme);
     </script>
+    <script type="application/ld+json" is:inline>
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "name": "Qualify Inmo",
+            "url": "https://qualifyinmo.com",
+            "logo": "https://qualifyinmo.com/images/brand/logo-sq.webp",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+34-600-123-456",
+              "contactType": "customer service",
+              "email": "contact@qualifyinmo.com"
+            }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Qualify Inmo",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "EUR"
+            },
+            "description": "SaaS para inmobiliarias que automatiza la cualificación de leads. Ahorra tiempo a tus agentes filtrando clientes según criterios reales."
+          }
+        ]
+      }
+    </script>
   </head>
   <body class="transition-colors duration-500">
+    <AmbientLights />
     <TwSizeIndicator />
     <Header />
     <main id="main-content">
