@@ -1,40 +1,32 @@
 ---
-import Section from "@/components/core/Section.astro";
 import Features from "@/components/Features.astro";
-import Testimonial from "@/components/Testimonial.astro";
+import ServicesPricing from "@/components/ServicesPricing.astro";
 import Base from "@/layouts/Base.astro";
 import Cta from "@/layouts/partials/Cta.astro";
+import Faq from "@/components/react/Faq";
 import { getEntry } from "astro:content";
+import Funnel from "./index/components/Funnel.astro";
+import UseCases from "./index/components/UseCases.astro";
+import Hero from "./index/components/Hero.astro";
 
 const homepage = await getEntry("homepage", "index");
 if (!homepage) {
   throw new Error("Homepage content not found");
 }
-// console.log(homepage);
-const { banner, sections, features, testimonial } = homepage.data;
+const { features, faq, document_title, meta_description } = homepage.data;
 const call_to_action = homepage.data.call_to_action;
 ---
 
-<Base>
-  <!-- banner -->
-  <section class="lg:mb-10 animate-fade-in">
-    <Section section={banner} />
-  </section>
-  <!-- multi section -->
-  {
-    sections && (
-      <section class="multi-section">
-        {sections.map((section) => (
-          <Section section={section} />
-        ))}
-      </section>
-    )
-  }
-  <!-- key features -->
-  <Features features={features} />
-  <!-- testimonial -->
-  <Testimonial testimonial={testimonial} />
-  <!-- call to action -->
-  <Cta {...call_to_action} />
-  <!-- <Content /> -->
+<Base title={document_title} description={meta_description}>
+  <main class="relative z-10 pt-14 pb-20">
+    <div class="container">
+      <Hero />
+      <Funnel />
+      <UseCases />
+      <Features features={features} />
+      {faq && <Faq client:load {...faq} />}
+      <ServicesPricing />
+      <Cta {...call_to_action} />
+    </div>
+  </main>
 </Base>

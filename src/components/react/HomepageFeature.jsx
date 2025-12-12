@@ -13,17 +13,17 @@ const HomapageFeature = ({ feature_list }) => {
         return (
           <div
             key={i}
-            className="flex flex-col justify-between rounded-lg bg-surface p-4 shadow-lg hover:shadow-xl hover:shadow-secondary/50 transition-all hover:scale-105"
+            className="flex flex-col justify-between rounded-lg glass-panel bg-emerald-500/5 p-4 shadow-lg hover:shadow-xl hover:shadow-primary/50 transition-all hover:scale-105"
           >
             <div>
               <div className="flex flex-row items-center">
                 <span className="icon">
-                <FeatherIcon />
+                  <FeatherIcon />
                 </span>
-                <h3 className="ml-2 break-all text-sm md:text-lg">{item.title}</h3>
+                <h3 className="ml-2 break-words text-sm md:text-lg">{item.title}</h3>
               </div>
               {/* Set the paragraph to break only on words */}
-              <p dangerouslySetInnerHTML={{__html: markdownify(item.content)}}></p>
+              <p dangerouslySetInnerHTML={{ __html: markdownify(item.content) }}></p>
             </div>
           </div>
         );

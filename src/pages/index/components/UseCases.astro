@@ -1,0 +1,140 @@
+---
+import { LuLayoutDashboard, LuUsers, LuBuilding } from "react-icons/lu";
+import Infographic from "./Infographic.astro";
+
+const useCases = [
+  {
+    id: "agents" as const,
+    title: "Agentes Inmobiliarios",
+    description:
+      "Multiplica tus visitas productivas. Automatiza el filtrado incial y deja que tu agenda se llene solo con compradores cualificados y listos para visitar.",
+    features: [
+      "Filtrado automático 24/7 sin intervención",
+      "Agenda visitas solo con clientes solventes",
+      "Recupera 20h/semana de llamadas improductivas",
+    ],
+    icon: LuUsers,
+    color: "emerald",
+    gradient: "from-emerald-500/20 to-emerald-900/20",
+    border: "border-emerald-500/30",
+    textGradient: "text-emerald-400",
+    glow: "shadow-[0_0_30px_rgba(16,185,129,0.15)]",
+  },
+  {
+    id: "agencies" as const,
+    title: "Agencias y Equipos",
+    description:
+      "Escala tu fuerza de ventas con control total. Distribuye leads cualificados equitativamente y monitoriza el rendimiento de conversión de cada agente en tiempo real.",
+    features: [
+      "Distribución inteligente y equitativa de leads",
+      "Analytics de rendimiento por agente",
+      "Estandarización de la calidad de servicio",
+    ],
+    icon: LuLayoutDashboard,
+    color: "blue",
+    gradient: "from-blue-500/20 to-blue-900/20",
+    border: "border-blue-500/30",
+    textGradient: "text-blue-400",
+    glow: "shadow-[0_0_30px_rgba(59,130,246,0.15)]",
+  },
+  {
+    id: "promotions" as const,
+    title: "Promotoras y Obra Nueva",
+    description:
+      "Domina el volumen de lanzamientos. Segmenta automáticamente cientos de leads en minutos, separando inversores de compradores finalistas para priorizar el cierre.",
+    features: [
+      "Cualificación masiva ante picos de demanda",
+      "Segmentación automática por perfil (Inversor/Finalista)",
+      "Nutrición de leads a largo plazo",
+    ],
+    icon: LuBuilding,
+    color: "cyan",
+    gradient: "from-cyan-500/20 to-cyan-900/20",
+    border: "border-cyan-500/30",
+    textGradient: "text-cyan-400",
+    glow: "shadow-[0_0_30px_rgba(34,211,238,0.15)]",
+  },
+];
+---
+
+<section class="relative py-24 sm:py-32">
+  <div class="container relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-20">
+      <h2 class="h2 mb-6">
+        Potencia para cada <span
+          class="bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent"
+          >Etapa de Crecimiento</span
+        >
+      </h2>
+      <p class="text-text-secondary text-lg leading-relaxed">
+        Nuestra tecnología se adapta a tu flujo de trabajo, eliminando el ruido
+        y entregando valor desde el primer día.
+      </p>
+    </div>
+
+    <div class="space-y-32">
+      {
+        useCases.map((useCase, index) => (
+          <div
+            class={`flex flex-col ${index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"} items-center gap-12 lg:gap-24`}
+          >
+            {/* Content Side */}
+            <div class="flex-1 relative">
+              <div class="flex items-center gap-4 mb-6">
+                <div
+                  class={`p-3 rounded-xl bg-surface-contrast border border-white/5 ${useCase.textGradient}`}
+                >
+                  <useCase.icon size={28} />
+                </div>
+                <div
+                  class={`px-3 py-1 rounded-full text-xs font-medium border bg-opacity-10 ${useCase.border} ${useCase.textGradient.replace("text-", "bg-").replace("400", "500")}`}
+                >
+                  Caso de Uso #{index + 1}
+                </div>
+              </div>
+
+              <h3 class="h3 mb-6">{useCase.title}</h3>
+              <p class="text-text-secondary text-lg mb-8 leading-relaxed">
+                {useCase.description}
+              </p>
+
+              <ul class="space-y-4">
+                {useCase.features.map((feature) => (
+                  <li class="flex items-center gap-3 text-text-secondary">
+                    <div
+                      class={`w-1.5 h-1.5 rounded-full ${useCase.textGradient.replace("text-", "bg-")}`}
+                    />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Visual Side - Custom Infographic */}
+            <div class="flex-1 w-full">
+              <div
+                class={`relative aspect-video rounded-3xl overflow-hidden glass-panel border border-white/10 ${useCase.glow}`}
+              >
+                <Infographic type={useCase.id} />
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .animate-spin-slow {
+    animation: spin 8s linear infinite;
+  }
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>

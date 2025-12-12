@@ -1,5 +1,7 @@
 ---
 # Home — Qualify Inmo
+document_title: "Qualify Inmo - Software de cualificación de leads inmobiliarios"
+meta_description: "Automatiza la cualificación de tus leads inmobiliarios con Qualify Inmo. Filtra inquilinos y compradores, ahorra tiempo y cierra más operaciones con nuestra herramienta SaaS."
 
 banner:
   title: 'Convierte tus <span class="text-accent text-shadow-[0px_5px_15px] shadow-accent/10">leads</span> en oportunidades <span class="text-secondary">reales</span>'
@@ -9,7 +11,7 @@ banner:
   image_size: "small"
   buttons:
     - label: Probar ahora
-      href: "/#planes"
+      href: "/signup"
       icon: _Zap
       addClasses: "w-full bg-primary text-dark hover:opacity-90 dark:border-white/10 dark:border text-xl"
 
@@ -32,7 +34,7 @@ sections:
 
 ## key features
 features:
-  title: "Por qué elegir <span class='text-secondary'>Qualify Inmo</span>"
+  title: "Por qué elegir <span class='text-primary'>Qualify Inmo</span>"
   description: "Porque cada minuto cuenta en el mundo inmobiliario, y **nuestro SaaS te da el poder de filtrar, priorizar y automatizar** sin perder el toque humano que tus clientes valoran."
   feature_list:
     - icon: "check-circle"
@@ -63,6 +65,22 @@ features:
       title: "Configurable"
       content: "Personaliza preguntas, criterios y mensajes automáticos. Todo bajo tu control."
 
+# faq
+faq:
+  title: "Preguntas Frecuentes"
+  description: "Resolvemos tus dudas sobre cómo Qualify Inmo puede transformar tu operativa diaria."
+  faq_list:
+    - question: "¿Cómo funciona el scoring de leads?"
+      answer: "Nuestro algoritmo analiza las respuestas de los prospectos (ingresos, tipo de contrato, fecha de mudanza, etc.) y las compara con los criterios que tú has definido. El resultado es una puntuación del 0 al 100 que te indica la viabilidad del cliente instantáneamente."
+    - question: "¿Es difícil de integrar con mi web?"
+      answer: "Para nada. Te proporcionamos un enlace único (o un código QR) que puedes poner en tu web, redes sociales o portales inmobiliarios. Si usas un CRM, contáctanos para ver opciones de integración API."
+    - question: "¿Mis datos están seguros?"
+      answer: "Absolutamente. Cumplimos con la normativa RGPD europea. Toda la información está encriptada y tú eres el único propietario de los datos de tus clientes."
+    - question: "¿Qué pasa si no me convence?"
+      answer: "No hay permanencia. Puedes cancelar tu suscripción en cualquier momento desde tu panel de control sin penalizaciones."
+    - question: "¿Sirve para venta y alquiler?"
+      answer: "Sí, Qualify Inmo está optimizado tanto para procesos de alquiler (scoring de solvencia) como para compraventa (intención de compra y capacidad financiera)."
+
 # testimonial
 testimonial:
   title: "Lo que dicen quienes ya lo usan"
@@ -91,6 +109,6 @@ call_to_action:
   description: "Ahorra tiempo, gana eficiencia y ofrece una experiencia profesional desde el primer contacto. **Qualify Inmo trabaja por ti incluso cuando duermes.**"
   button:
     label: "Solicitar demo"
-    href: "/#contacto"
-    color: accent
+    href: "/signup"
+    color: emerald
 ---

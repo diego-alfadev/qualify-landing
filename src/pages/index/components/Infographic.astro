@@ -1,0 +1,453 @@
+---
+import {
+  LuCalendarCheck,
+  LuLayoutDashboard,
+  LuUsers,
+  LuBarChart3,
+  LuTarget,
+} from "react-icons/lu";
+
+interface Props {
+  type: "agents" | "agencies" | "promotions";
+}
+
+const { type } = Astro.props;
+
+const mainColor =
+  type === "agents" ? "#10b981" : type === "agencies" ? "#3b82f6" : "#22d3ee";
+---
+
+<div class="relative w-full h-full">
+  {/* Background Grid */}
+  <div
+    class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px]"
+  >
+  </div>
+
+  {/* SVG Layer - ViewBox 600x340 */}
+  <svg
+    class="absolute inset-0 w-full h-full pointer-events-none"
+    viewBox="0 0 600 340"
+    preserveAspectRatio="xMidYMid meet"
+  >
+    <defs>
+      <filter id={`glow-${type}`}>
+        <feGaussianBlur stdDeviation="2" result="coloredBlur"></feGaussianBlur>
+        <feMerge>
+          <feMergeNode in="coloredBlur"></feMergeNode>
+          <feMergeNode in="SourceGraphic"></feMergeNode>
+        </feMerge>
+      </filter>
+      <linearGradient
+        id={`grad-${type}`}
+        x1="0"
+        y1="0"
+        x2="1"
+        y2="0"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop offset="0%" stop-color="rgba(255,255,255,0.05)"></stop>
+        <stop offset="50%" stop-color={`${mainColor}80`}></stop>
+        <stop offset="100%" stop-color="rgba(255,255,255,0.05)"></stop>
+      </linearGradient>
+    </defs>
+
+    {/* SCENARIO 1: AGENTS (Funnel) */}
+    {
+      type === "agents" && (
+        <g>
+          {/* Paths: Inputs merging to Center (300, 170) */}
+          <path
+            d="M 120 100 Q 300 100 300 170"
+            fill="none"
+            stroke={`url(#grad-${type})`}
+            stroke-width="2"
+            opacity="0.3"
+          />
+          <path
+            d="M 120 170 L 300 170"
+            fill="none"
+            stroke={`url(#grad-${type})`}
+            stroke-width="2"
+            opacity="0.3"
+          />
+          <path
+            d="M 120 240 Q 300 240 300 170"
+            fill="none"
+            stroke={`url(#grad-${type})`}
+            stroke-width="2"
+            opacity="0.3"
+          />
+          {/* Path: Center to Output (500, 170) */}
+          <path
+            d="M 300 170 L 480 170"
+            fill="none"
+            stroke={`url(#grad-${type})`}
+            stroke-width="2"
+            opacity="0.3"
+          />
+
+          {/* Particles - Removed the distracting red/bad lead pulse */}
+          <circle r="3" fill={mainColor} filter={`url(#glow-${type})`}>
+            <animateMotion
+              dur="3s"
+              repeatCount="indefinite"
+              path="M 120 100 Q 300 100 300 170"
+            />
+            <animate
+              attributeName="opacity"
+              values="0;1;0"
+              dur="3s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle r="3" fill={mainColor} filter={`url(#glow-${type})`}>
+            <animateMotion
+              dur="4s"
+              repeatCount="indefinite"
+              path="M 120 170 L 300 170"
+            />
+            <animate
+              attributeName="opacity"
+              values="0;1;0"
+              dur="4s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle r="3" fill={mainColor} filter={`url(#glow-${type})`}>
+            <animateMotion
+              dur="3.5s"
+              repeatCount="indefinite"
+              path="M 120 240 Q 300 240 300 170"
+            />
+            <animate
+              attributeName="opacity"
+              values="0;1;0"
+              dur="3.5s"
+              repeatCount="indefinite"
+            />
+          </circle>
+
+          {/* Validated Output Particle */}
+          <circle
+            r="4"
+            fill={mainColor}
+            filter={`url(#glow-${type})`}
+            opacity="0"
+          >
+            <animateMotion
+              dur="3s"
+              begin="1.5s"
+              repeatCount="indefinite"
+              path="M 300 170 L 480 170"
+            />
+            <animate
+              attributeName="opacity"
+              values="0;1;0"
+              dur="3s"
+              begin="1.5s"
+              repeatCount="indefinite"
+            />
+          </circle>
+        </g>
+      )
+    }
+
+    {/* SCENARIO 2: AGENCIES (Distribution) */}
+    {
+      type === "agencies" && (
+        <g>
+          {/* Main Input to Hub (250, 170) */}
+          <path
+            d="M 100 170 L 250 170"
+            fill="none"
+            stroke={`url(#grad-${type})`}
+            stroke-width="2"
+            opacity="0.3"
+          />
+
+          {/* Hub to Nodes: (450, 80), (450, 170), (450, 260) */}
+          <path
+            d="M 250 170 C 350 170 350 80 450 80"
+            fill="none"
+            stroke={`url(#grad-${type})`}
+            stroke-width="2"
+            opacity="0.3"
+          />
+          <path
+            d="M 250 170 L 450 170"
+            fill="none"
+            stroke={`url(#grad-${type})`}
+            stroke-width="2"
+            opacity="0.3"
+          />
+          <path
+            d="M 250 170 C 350 170 350 260 450 260"
+            fill="none"
+            stroke={`url(#grad-${type})`}
+            stroke-width="2"
+            opacity="0.3"
+          />
+
+          {/* Input Particle */}
+          <circle r="4" fill={mainColor} filter={`url(#glow-${type})`}>
+            <animateMotion
+              dur="2s"
+              repeatCount="indefinite"
+              path="M 100 170 L 250 170"
+            />
+            <animate
+              attributeName="opacity"
+              values="0;1;1"
+              dur="2s"
+              repeatCount="indefinite"
+            />
+          </circle>
+
+          {/* Distributed Particles */}
+          <circle
+            r="3"
+            fill={mainColor}
+            filter={`url(#glow-${type})`}
+            opacity="0.7"
+          >
+            <animateMotion
+              dur="3s"
+              begin="1s"
+              repeatCount="indefinite"
+              path="M 250 170 C 350 170 350 80 450 80"
+            />
+          </circle>
+          <circle
+            r="3"
+            fill={mainColor}
+            filter={`url(#glow-${type})`}
+            opacity="0.7"
+          >
+            <animateMotion
+              dur="3s"
+              begin="1.5s"
+              repeatCount="indefinite"
+              path="M 250 170 L 450 170"
+            />
+          </circle>
+          <circle
+            r="3"
+            fill={mainColor}
+            filter={`url(#glow-${type})`}
+            opacity="0.7"
+          >
+            <animateMotion
+              dur="3s"
+              begin="2s"
+              repeatCount="indefinite"
+              path="M 250 170 C 350 170 350 260 450 260"
+            />
+          </circle>
+        </g>
+      )
+    }
+
+    {/* SCENARIO 3: PROMOTIONS (Segmentation) */}
+    {
+      type === "promotions" && (
+        <g>
+          {/* Inputs to Processor (300, 170) */}
+          <path
+            d="M 100 130 Q 200 130 300 170"
+            fill="none"
+            stroke={`url(#grad-${type})`}
+            stroke-width="1.5"
+            opacity="0.3"
+          />
+          <path
+            d="M 100 210 Q 200 210 300 170"
+            fill="none"
+            stroke={`url(#grad-${type})`}
+            stroke-width="1.5"
+            opacity="0.3"
+          />
+
+          {/* Processor to Segments: (500, 100), (500, 240) */}
+          <path
+            d="M 300 170 Q 400 170 500 100"
+            fill="none"
+            stroke={`url(#grad-${type})`}
+            stroke-width="2"
+            opacity="0.4"
+          />
+          <path
+            d="M 300 170 Q 400 170 500 240"
+            fill="none"
+            stroke={`url(#grad-${type})`}
+            stroke-width="2"
+            opacity="0.4"
+          />
+
+          {/* High volume entry particles */}
+          <circle r="2" fill={mainColor} opacity="0.8">
+            <animateMotion
+              dur="1.5s"
+              repeatCount="indefinite"
+              path="M 100 130 Q 200 130 300 170"
+            />
+          </circle>
+          <circle r="2" fill={mainColor} opacity="0.8">
+            <animateMotion
+              dur="1.8s"
+              repeatCount="indefinite"
+              path="M 100 210 Q 200 210 300 170"
+            />
+            {/* Added a variation for more "volume" feel */}
+          </circle>
+
+          {/* Segmented output particles */}
+          <circle r="4" fill="#fbbf24" filter={`url(#glow-${type})`}>
+            <animateMotion
+              dur="3s"
+              begin="0.5s"
+              repeatCount="indefinite"
+              path="M 300 170 Q 400 170 500 100"
+            />
+            <animate
+              attributeName="opacity"
+              values="0;1;0"
+              dur="3s"
+              begin="0.5s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle r="4" fill={mainColor} filter={`url(#glow-${type})`}>
+            <animateMotion
+              dur="3s"
+              begin="0.8s"
+              repeatCount="indefinite"
+              path="M 300 170 Q 400 170 500 240"
+            />
+            <animate
+              attributeName="opacity"
+              values="0;1;0"
+              dur="3s"
+              begin="0.8s"
+              repeatCount="indefinite"
+            />
+          </circle>
+        </g>
+      )
+    }
+  </svg>
+
+  {/* HTML Overlays - Absolutely positioned using PERCENTAGES */}
+  {
+    type === "agents" && (
+      <>
+        {/* Input Node (120, 170 - approx average of inputs) -> 20%, 50% */}
+        <div class="absolute top-1/2 left-[20%] -translate-x-1/2 -translate-y-1/2">
+          <div class="p-3 bg-black/60 rounded-xl border border-white/10 backdrop-blur-sm shadow-lg">
+            <LuUsers className="text-gray-400 w-5 h-5" />
+          </div>
+        </div>
+
+        {/* Central Engine (300, 170) -> 50%, 50% */}
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <div class="p-4 bg-black border border-emerald-500/30 rounded-full shadow-[0_0_20px_rgba(16,185,129,0.2)]">
+            <LuTarget className="text-emerald-500 w-6 h-6 animate-spin-slow" />
+          </div>
+        </div>
+
+        {/* Output Node (480, 170) -> 80%, 50% */}
+        <div class="absolute top-1/2 left-[80%] -translate-x-1/2 -translate-y-1/2">
+          <div class="flex items-center gap-3 p-3 bg-emerald-900/20 border border-emerald-500/20 rounded-xl backdrop-blur-md">
+            <LuCalendarCheck className="text-emerald-400 w-6 h-6" />
+            <div class="hidden sm:block">
+              <div class="text-xs text-emerald-200 font-medium">Agendado</div>
+              <div class="text-[10px] text-emerald-500/60">Jueves 18:00</div>
+            </div>
+          </div>
+        </div>
+      </>
+    )
+  }
+
+  {
+    type === "agencies" && (
+      <>
+        {/* Source (100, 170) -> 16.6%, 50% */}
+        <div class="absolute top-1/2 left-[16.6%] -translate-x-1/2 -translate-y-1/2">
+          <div class="bg-black/80 backdrop-blur-sm border border-white/10 px-3 py-2 rounded-lg text-center">
+            <div class="text-[10px] text-blue-300 font-bold tracking-wider">
+              LEADS
+            </div>
+          </div>
+        </div>
+
+        {/* Hub (250, 170) -> 41.6%, 50% */}
+        <div class="absolute top-1/2 left-[41.6%] -translate-x-1/2 -translate-y-1/2">
+          <div class="w-12 h-12 bg-black border border-blue-500/50 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(59,130,246,0.3)]">
+            <LuLayoutDashboard className="text-blue-500 w-5 h-5" />
+          </div>
+        </div>
+
+        {/* Agent 1 (450, 80) -> 75%, 23.5% */}
+        <div class="absolute top-[23.5%] left-[75%] -translate-x-1/2 -translate-y-1/2">
+          <div class="w-9 h-9 rounded-full bg-blue-900/30 border border-blue-400/30 flex items-center justify-center text-blue-400 text-xs font-semibold">
+            A1
+          </div>
+        </div>
+        {/* Agent 2 (450, 170) -> 75%, 50% */}
+        <div class="absolute top-1/2 left-[75%] -translate-x-1/2 -translate-y-1/2">
+          <div class="w-9 h-9 rounded-full bg-blue-900/30 border border-blue-400/30 flex items-center justify-center text-blue-400 text-xs font-semibold">
+            A2
+          </div>
+        </div>
+        {/* Agent 3 (450, 260) -> 75%, 76.5% */}
+        <div class="absolute top-[76.5%] left-[75%] -translate-x-1/2 -translate-y-1/2">
+          <div class="w-9 h-9 rounded-full bg-blue-900/30 border border-blue-400/30 flex items-center justify-center text-blue-400 text-xs font-semibold">
+            A3
+          </div>
+        </div>
+      </>
+    )
+  }
+
+  {
+    type === "promotions" && (
+      <>
+        {/* Central Process (300, 170) -> 50%, 50% */}
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <div class="p-4 bg-black border border-cyan-500/40 rounded-xl shadow-[0_0_20px_rgba(34,211,238,0.2)]">
+            <LuBarChart3 className="text-cyan-400 w-6 h-6" />
+          </div>
+        </div>
+
+        {/* Investor Output (500, 100) -> 83.3%, 29.4% */}
+        <div class="absolute top-[29.4%] left-[83.3%] -translate-x-1/2 -translate-y-1/2">
+          <div class="px-3 py-1.5 bg-amber-900/20 border border-amber-500/30 rounded-lg backdrop-blur-sm">
+            <span class="text-xs text-amber-400 font-medium">Inversor</span>
+          </div>
+        </div>
+
+        {/* Homebuyer Output (500, 240) -> 83.3%, 70.5% */}
+        <div class="absolute top-[70.5%] left-[83.3%] -translate-x-1/2 -translate-y-1/2">
+          <div class="px-3 py-1.5 bg-cyan-900/20 border border-cyan-500/30 rounded-lg backdrop-blur-sm">
+            <span class="text-xs text-cyan-400 font-medium">Finalista</span>
+          </div>
+        </div>
+      </>
+    )
+  }
+</div>
+
+<style>
+  .animate-spin-slow {
+    animation: spin 8s linear infinite;
+  }
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>
