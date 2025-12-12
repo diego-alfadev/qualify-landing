@@ -1,3 +1,26 @@
 .bg-gradient-primary {
-    background-image: linear-gradient(184.78deg, rgba(var(--primary)), rgba(var(--secondary)) 120.07%);
+  background-image: linear-gradient(
+    184.78deg,
+    rgba(var(--primary)),
+    rgba(var(--secondary)) 120.07%
+  );
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.matrix-grid {
+  background-size: 40px 40px;
+  background-image: linear-gradient(
+      to right,
+      rgba(16, 185, 129, 0.05) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(16, 185, 129, 0.05) 1px, transparent 1px);
+  mask-image: radial-gradient(circle at center, black, transparent 80%);
+}
+.text-glow {
+  text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
 }

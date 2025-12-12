@@ -59,7 +59,7 @@ const text = logo_text;
   }
 
   {
-    showText != false && (
+    (showText != false || showText == "false") && (
       <p class="hidden md:block text-text md:text-3xl font-bold" set:html={markdownify(text ? text : logo_text)}/>
     )
   }

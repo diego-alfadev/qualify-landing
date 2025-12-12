@@ -13,7 +13,7 @@ if (theme_config.fonts.font_family.secondary) {
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
-  safelist: [{ pattern: /^col-/ }, ...theme_config.colors.flatMap((color) => [{ pattern: new RegExp(`bg-${color}`) }]), {pattern: /^btn-/}],
+  safelist: [{ pattern: /^col-/ }, ...theme_config.colors.flatMap((color) => [{ pattern: new RegExp(`bg-${color}`) }]), { pattern: /^btn-/ }],
   darkMode: "selector",
   theme: {
     container: {
@@ -51,7 +51,7 @@ module.exports = {
         },
         "dissappear": {
           '0%': { opacity: 1, visibility: 'visible' },
-          '100%': { visibility: 'hidden', opacity: 0},
+          '100%': { visibility: 'hidden', opacity: 0 },
         },
       },
       // Defined animations
@@ -59,7 +59,17 @@ module.exports = {
         "fade-in": 'fade-in 1s ease-in-out',
         "fade-out": 'fade-out 1s ease-in-out',
         "dissappear": 'dissappear 1.5s ease-in-out forwards',
-      }
+      },
+      boxShadow: {
+        'glow-primary': '0 0 20px rgba(var(--primary), 0.5)',
+        'glow-secondary': '0 0 20px rgba(var(--secondary), 0.5)',
+        'glow-accent': '0 0 20px rgba(var(--accent), 0.5)',
+        'glow-danger': '0 0 20px rgba(var(--danger), 0.5)',
+        'glow-success': '0 0 20px rgba(var(--success), 0.5)',
+        'glow-warning': '0 0 20px rgba(var(--warning), 0.5)',
+        'glow-info': '0 0 20px rgba(var(--info), 0.5)',
+        'glare': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.1)',
+      },
     },
   },
   plugins: [

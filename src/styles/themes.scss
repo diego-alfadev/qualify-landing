@@ -8,40 +8,41 @@
 
 // @see @/config/theme.json
 $default: (
-    "primary": #005DF4,
-    "secondary": #1AFAAE,
-    "accent": #1afae7,
-    "background": #f9f9f9,
-    "background-contrast": #141414,
-    "surface": #ffffff,
-    "surface-contrast": #000000,
-    "border": #f5f5f5,
-    "text": #2a2a2a,
+    "primary": #00C16A, // Digital Green (Light)
+    "secondary": #2563eb,
+    "accent": #06b6d4,
+    "background": #ffffff,
+    "background-contrast": #020617,
+    "surface": #f8fafc,
+    "surface-contrast": #1e293b,
+    "border": #cbd5e1, // Crisp border
+    "text": #020617,
     "text-contrast": #ffffff,
-    "text-secondary": #494949,
-    "text-disabled": #999999,
-    // All the colors defined in the default theme but not defined in the dark theme will be used in the dark theme 'as is'
-    "danger": #d93131,
-    "success": #21b621,
-    "warning": #f1cc14,
-    "info": #2760dc
+    "text-secondary": #475569,
+    "text-disabled": #94a3b8,
+    "danger": #ef4444,
+    "success": #00C16A,
+    "warning": #f59e0b,
+    "info": #3b82f6
 );
 
 $dark: (
-    "secondary": #0ae89e,
-    "accent": #06e8e0,
-    "background": #020617,
-    "background-contrast": #f1f1f1,
-    "surface": #232323,
-    "surface-contrast": #d6d6d6,
-    "border": #373737,
-    "text": #f1f1f1,
-    "text-contrast": #1f1f1f,
-    "text-secondary": #d1d1d1,
-    "text-disabled": #999999
-    // Override the default theme colors with the dark theme colors
-    // "danger": #ea3434,
-    // ...
+    "primary": #00E599, // Cyber Matrix Green (Vibrant)
+    "secondary": #2E5CFF, // Electric Blue (Deep contrast)
+    "accent": #00F0FF, // Cyan Neon
+    "background": #020403, // Abyssal Green (Almost Black)
+    "background-contrast": #dcfce7,
+    "surface": #080C0A, // Deep Dark Card
+    "surface-contrast": #1A2623, // Border/Highlight
+    "border": #141F1A, // Subtle dark green border
+    "text": #f0fdf4, // Very pale green text (hacker style readable)
+    "text-contrast": #020617,
+    "text-secondary": #94a3b8, // Cool gray for secondary
+    "text-disabled": #475569,
+    "danger": #ff4d4d, // Neon Red
+    "success": #00E599,
+    "warning": #fbbf24,
+    "info": #60a5fa
 );
 
 // This can be used to set the default theme, or changed to a different theme with a custom class name

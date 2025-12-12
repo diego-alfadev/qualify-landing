@@ -48,7 +48,7 @@
 
 // container
 .container {
-  @apply mx-auto max-w-[1202px] px-4;
+  @apply max-w-7xl mr-auto ml-auto pr-3 pl-3 md:pr-6 md:pl-6;
 }
 
 // form style
@@ -182,7 +182,7 @@
     @apply h-6 w-6;
 
     svg {
-      @apply text-secondary;
+      @apply text-primary;
     }
   }
 }
@@ -229,9 +229,9 @@
 .form-control,
 .form-select {
   & option {
-    @apply text-text dark:text-text-contrast;
+    @apply text-text bg-background;
   }
-  @apply h-[60px] w-full rounded-lg border-surface-contrast/50 text-text placeholder:text-text focus:border-primary focus:ring-transparent bg-transparent;
+  @apply block w-full rounded-xl border border-border bg-surface/50 p-4 text-base text-text placeholder:text-text-disabled shadow-sm backdrop-blur-sm transition-all duration-200 focus:border-primary focus:bg-surface focus:shadow-glow-primary focus:outline-none focus:ring-0;
 }
 
 .form-inputs * {

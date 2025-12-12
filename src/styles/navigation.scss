@@ -13,7 +13,7 @@ input#nav-toggle:checked ~ #nav-menu {
 .header {
   flex-direction: row;
   --shadow-color: rgba(99, 99, 99, 0.3);
-  --bg: rgba(255, 255, 255, 0.565);
+  --bg: transparent;
   animation: reduce-header linear both;
   animation-timeline: scroll();
   animation-range: 0 150px;
@@ -27,9 +27,9 @@ input#nav-toggle:checked ~ #nav-menu {
 
 @keyframes reduce-header {
   100% {
-    padding-block: 1rem;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
+    padding-block: .5rem;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
     box-shadow: 0 5px 50px -5px var(--shadow-color), 0 0 3px 1px var(--shadow-color);
     background-color: var(--bg)
   }
