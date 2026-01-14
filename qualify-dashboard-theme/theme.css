@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+/* Import the HeroUI Plugin */
+@plugin "./plugin";
+
+/*
+   We assume the user will install @heroui/theme in their project.
+   The @source directive below tells Tailwind to scan the HeroUI theme files for classes.
+   Adjust the path if your project structure is non-standard.
+*/
+@source "../node_modules/@heroui/theme/dist/**/*.{js,mjs}";
+
+/* Qualify Dashboard Theme - CSS Extras */
+
+@theme {
+  /* Fonts - match Landing Page */
+  --font-sans: "Lato", system-ui, sans-serif;
+  --font-mono: "Inter", monospace;
+
+  /* Brand Gradients (mapped to CSS variables for reusability) */
+  --gradient-brand: linear-gradient(180deg, #00E599 0%, #2E5CFF 100%);
+  --gradient-matrix: radial-gradient(circle at center, rgba(0, 229, 153, 0.1) 0%, transparent 70%);
+  --gradient-glass: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+/* Custom Utilities */
+
+@utility glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@utility text-glow {
+  text-shadow: 0 0 20px rgba(0, 229, 153, 0.5);
+}
+
+@utility bg-matrix {
+  background-color: #020403; /* Fallback */
+  background-image: var(--gradient-matrix);
+}
+
+/*
+   Force dark mode variant if needed custom logic,
+   but @heroui handles this via data-theme attribute predominantly.
+   We can add a helper variant if desired.
+*/
+@custom-variant dark (&:where([data-theme="dark"], .dark *));

@@ -1,0 +1,57 @@
+import React from "react";
+
+interface LogoProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+    showText?: boolean;
+    className?: string;
+    size?: number; // Height in pixels (default 36 -> h-9)
+}
+
+export const Logo: React.FC<LogoProps> = ({
+    showText = true,
+    className = "",
+    size = 36,
+    ...props
+}) => {
+    return (
+        <a
+            href="/"
+            className={`flex flex-row items-center gap-1 ${className}`}
+            {...props}
+        >
+            <svg
+                height={size}
+                viewBox="0 0 558 527"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-auto"
+                style={{ height: `${size}px` }}
+            >
+                <path
+                    d="M511.653 259.646C512.187 259.464 512.744 259.521 513.209 259.759C474.303 295.621 442.933 359.22 428.773 435.922C427.245 442.417 426.166 449.013 425.555 455.668C424.25 464.868 423.19 474.229 422.392 483.729C422.336 484.393 422.284 485.058 422.23 485.722C343.201 476.152 273.853 427.282 244.746 352.868C244.57 352.419 244.572 351.946 244.713 351.522C264.026 363.813 287.364 371 312.5 371C321.286 371 329.852 370.121 338.104 368.454C346.317 377.841 355.729 386.081 366.06 393.049C367.11 393.757 368.539 393.298 369.014 392.123C390.755 338.312 434.137 292.109 492.378 266.22L511.653 259.646ZM276 43C397.252 43 496.683 130.354 506.245 241.431C506.175 241.452 506.105 241.472 506.035 241.494L505.52 241.663L485.438 248.512L484.66 248.857C465.692 257.289 448.165 267.732 432.291 279.814C433.317 273.014 433.85 266.065 433.85 259C433.85 177.483 363.178 111.4 276 111.4C188.822 111.4 118.15 177.483 118.15 259C118.15 332.522 175.639 393.485 250.876 404.737C269.464 431.773 293.626 454.075 321.358 470.836C306.692 473.566 291.525 475 276 475C148.422 475 45 378.294 45 259C45 139.706 148.422 43 276 43Z"
+                    fill="url(#paint0_linear_logo)"
+                />
+                <defs>
+                    <linearGradient
+                        id="paint0_linear_logo"
+                        x1="138.683"
+                        y1="93.4"
+                        x2="479.62"
+                        y2="503.748"
+                        gradientUnits="userSpaceOnUse"
+                    >
+                        <stop stopColor="#005DF4" />
+                        <stop offset="1" stopColor="#00FF62" />
+                    </linearGradient>
+                </defs>
+            </svg>
+
+            {showText && (
+                <span className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
+                    ualify <span className="text-primary">Inmo</span>
+                </span>
+            )}
+        </a>
+    );
+};
+
+export default Logo;
