@@ -1,10 +1,24 @@
 ---
 import Base from "@/layouts/Base.astro";
 import SignupWizard from "@/components/react/SignupWizard";
+import PlgSignup from "@/components/react/PlgSignup";
 
 const title = "Registro - Qualify Inmo";
 const description =
   "Crea tu cuenta en Qualify Inmo y empieza a automatizar tu agencia inmobiliaria.";
+
+const textTitle =
+  import.meta.env.PUBLIC_ONBOARDING_MODE === "legacy"
+    ? "Únete a Qualify Inmo"
+    : "";
+const textDescription =
+  import.meta.env.PUBLIC_ONBOARDING_MODE === "legacy"
+    ? "Automatiza la cualificación de leads y ahorra horas de trabajo cada semana. <br class='hidden md:block' /> Configura tu perfil en unos minutos."
+    : "";
+
+const isPlgMode = import.meta.env.PUBLIC_ONBOARDING_MODE === "plg";
+const dashboardUrl =
+  import.meta.env.PUBLIC_DASHBOARD_URL || "https://app.qualifyinmo.com";
 ---
 
 <Base title={title} description={description}>
@@ -12,30 +26,35 @@ const description =
     class="section pt-14 pb-24 min-h-[85vh] relative overflow-hidden flex flex-col justify-center"
   >
     <div class="container relative z-10">
-      <div class="text-center max-w-2xl mx-auto mb-10">
-        <div
-          class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-border text-xs font-medium text-primary mb-6 shadow-sm"
-        >
-          <span class="relative flex h-2 w-2">
-            <span
-              class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"
-            ></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"
-            ></span>
-          </span>
-          Registro de Agencia
-        </div>
-        <h1 class="h2 mb-4">Únete a Qualify Inmo</h1>
-        <p class="text-text-secondary text-lg">
-          Automatiza la cualificación de leads y ahorra horas de trabajo cada
-          semana.
-          <br class="hidden md:block" />
-          Configura tu perfil en unos minutos.
-        </p>
-      </div>
+      {
+        !isPlgMode && (
+          <div class="text-center max-w-2xl mx-auto mb-10">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-border text-xs font-medium text-primary mb-6 shadow-sm">
+              <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-primary" />
+              </span>
+              Registro de Agencia
+            </div>
+            <h1 class="h2 mb-4">Únete a Qualify Inmo</h1>
+            <p class="text-text-secondary text-lg">
+              Automatiza la cualificación de leads y ahorra horas de trabajo
+              cada semana.
+              <br class="hidden md:block" />
+              Configura tu perfil en unos minutos.
+            </p>
+          </div>
+        )
+      }
 
       <div class="mx-auto w-full">
-        <SignupWizard client:load />
+        {
+          isPlgMode ? (
+            <PlgSignup client:load dashboardUrl={dashboardUrl} />
+          ) : (
+            <SignupWizard client:load />
+          )
+        }
       </div>
     </div>
   </section>

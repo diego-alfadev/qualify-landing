@@ -4,6 +4,8 @@ import { useForm, useWatch } from 'react-hook-form';
 import { motion, AnimatePresence } from 'framer-motion';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { apiService } from '../../lib/ApiService';
+import type { UserSignupPayload } from '../../types/api';
 
 // Helper for conditional classes
 function cn(...inputs: (string | undefined | null | false)[]) {
@@ -184,10 +186,44 @@ export default function SignupWizard({ initialValues, customWelcomeFromProps }: 
         setCurrentStep(nextStep);
     };
 
-    const onSubmit = (data: FormData) => {
-        console.log('Form Submitted', data);
-        // Simulation of API call
+    const onSubmit = async (data: FormData) => {
+        const payload: UserSignupPayload = {
+            personal_info: {
+                first_name: data.firstName,
+                last_name: data.lastName,
+                email: data.email,
+                phone: data.phone,
+            },
+            agency_info: {
+                name: data.agencyName,
+                website: data.website
+            },
+            marketing_info: {
+                referral_source: data.referralSource,
+                referral_detail: data.referralDetail,
+                why_qualify: data.whyQualify
+            },
+            tracking_info: {
+                utm_source: data.utmSource,
+                utm_medium: data.utmMedium,
+                utm_campaign: data.utmCampaign,
+                utm_term: data.utmTerm,
+                utm_content: data.utmContent,
+                referral_code: data.referralCode
+            },
+            stripe_info: {
+                customer_id: null,
+                subscription_id: null
+            }
+        };
 
+        try {
+            await apiService.signup(payload);
+            // For now, valid visual confirmation
+            alert("Registro completado (Simulación). Revisa la consola para ver el payload JSON.");
+        } catch (error) {
+            console.error("Signup failed", error);
+        }
     };
 
     // Variants for animation
@@ -533,7 +569,7 @@ export default function SignupWizard({ initialValues, customWelcomeFromProps }: 
                         </div>
                     </div>
 
-                    <div className="relative z-10 mt-auto pt-8 border-t border-border/50">
+                    {/* <div className="relative z-10 mt-auto pt-8 border-t border-border/50">
                         <div className="flex items-center gap-4">
                             <div className="flex -space-x-3">
                                 {[1, 2, 3].map((i) => (
@@ -545,7 +581,7 @@ export default function SignupWizard({ initialValues, customWelcomeFromProps }: 
                                 confían en nosotros
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
